@@ -3,7 +3,7 @@ package com.charles.demo.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.charles.demo.data.vo.PersonVO;
+import com.charles.demo.data.vo.v1.PersonVO;
 import com.charles.demo.models.Person;
 
 public class MockPerson {
@@ -47,7 +47,7 @@ public class MockPerson {
         person.setAddress("Addres Test" + number);
         person.setName("First Name Test" + number);
         person.setGender(((number % 2)==0) ? "Male" : "Female");
-        person.setId(number.longValue());
+        person.setKey(number.longValue());
         return person;
     }
 
