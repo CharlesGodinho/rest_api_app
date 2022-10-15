@@ -16,6 +16,7 @@
 	<description>Spring boot REST API</description>
 	<properties>
 		<java.version>18</java.version>
+		<springdoc.version>2.0.0-M3</springdoc.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -74,6 +75,12 @@
 			<artifactId>dozer-core</artifactId>
 			<version>6.4.0</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>${springdoc.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -100,7 +107,7 @@
 			<name>Spring Milestones</name>
 			<url>https://repo.spring.io/milestone</url>
 			<snapshots>
-				<enabled>false</enabled>
+				<enabled>true</enabled>
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>

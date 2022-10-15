@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.charles.demo.controller.PersonController;
 import com.charles.demo.data.vo.v1.PersonVO;
+import com.charles.demo.exceptions.RequiredObjectisNullException;
 import com.charles.demo.exceptions.ResourceNotFoundException;
 import com.charles.demo.mapper.DozerMapper;
 import com.charles.demo.models.Person;
@@ -33,6 +34,8 @@ public class PersonService {
 
 	public PersonVO create(PersonVO person) {
 		logger.info("creating one Person");
+		if (person == null) throw new RequiredObjectisNullException();
+
 		Person entity = DozerMapper.parseObject(person, Person.class);
 		PersonVO vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
 		vo.add(linkTo(methodOn(PersonController.class).findById(vo.getKey())).withSelfRel());
@@ -40,12 +43,17 @@ public class PersonService {
 	}
 
 	public PersonVO update(PersonVO person) {
+
+		if(person == null) throw new RequiredObjectisNullException();
+
 		var entity = repository.findById(person.getKey())
 				.orElseThrow(() -> new ResourceNotFoundException("Sem registros"));
 		entity.setName(person.getName());
 		entity.setAddress(person.getAddress());
 		entity.setGender(person.getGender());
-		return DozerMapper.parseObject(repository.save(entity), PersonVO.class);
+		PersonVO vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
+		vo.add(linkTo(methodOn(PersonController.class).findById(vo.getKey())).withSelfRel());
+		return vo;
 	}
 
 	public void delete(Long id) {
