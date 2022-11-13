@@ -158,6 +158,16 @@ class PersonServiceTest {
 	}
 
 	@Test
+	void testCreateWithNullPerson() {
+		Exception exception = assertThrows(RequiredObjectisNullException.class, () -> {
+			service.create(null);
+		});
+		String expectedMessage = "It is not allowed to persist a null object!";
+		String actualMessage = exception.getMessage();
+		assertTrue(actualMessage.contains(expectedMessage));
+	}
+
+	@Test
 	void testUpdateWithNullPerson() {
 		Exception exception = assertThrows(RequiredObjectisNullException.class, () -> {
 			service.update(null);
