@@ -1,4 +1,4 @@
-package com.charles.demo.securityJwt;
+package com.charles.demo.security.jwt;
 
 import java.util.Base64;
 import java.util.Date;
