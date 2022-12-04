@@ -2,6 +2,8 @@ server:
   port: 8888
 cors:
   originPatterns: http://localhost:8080,http://localhost:3000
+file:
+  upload-dir: /home/runner/work/rest_api_app/UploadDir
 security:
   jwt:
     token:
@@ -17,9 +19,10 @@ spring:
       hibernate:
       dialect: org.hibernate.dialect.MYSQL8Dialect
     show-sql: false
-   
 springdoc:
-  pathsToMatch: /api/**/v1/**
+  pathsToMatch:
+    -/api/**/v1/**
+    -/auth/**
   swagger-ui:
     use-root-path: true 
       
