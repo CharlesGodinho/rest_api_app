@@ -1,0 +1,48 @@
+name: Continuos Integration with github Actions
+
+on:
+  push:
+    branches: 
+    - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Login DockerHub
+      uses: docker/login-action@v2.1.0
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+    logout: # optional, default is true
+
+    - name: Set up JDK 18
+      uses: actions/setup-java@v3
+      with:
+        java-version: '18'
+        distribution: 'adopt'
+        cache: maven
+
+    - name: Build Application JAR
+      working-directory: ./rest_api_app
+      run: mvn clean package
+      
+    - name: Docker Compose Build
+      working-directory: ./rest_api_app
+      run: docker compose build
+
+    - name: Push to Docker Hub Container Registry
+      run: 
+        docker tag ${{ secrets.DOCKER_USERNAME }}/rest_api_app:latest ${{ secrets.DOCKER_USERNAME }}/rest_api_app:${{ github.run_id }}
+        
+        docker push ${{ secrets.DOCKER_USERNAME }}/rest_api_app:${{ github.run_id }}
+        docker push ${{ secrets.DOCKER_USERNAME }}/rest_api_app:latest
+
+    - name: Docker Compose Build
+      working-directory: ./rest_api_app
+      run: docker compose build
