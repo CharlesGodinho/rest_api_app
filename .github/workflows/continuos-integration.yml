@@ -28,8 +28,9 @@ jobs:
     - name: Build Application JAR
       working-directory: ../rest_api_app
       run: mvn clean package
+
     - name: Docker Compose Build
-      working-directory: ./rest_api_app
+      working-directory: ../rest_api_app
       run: docker compose build
 
     - name: Push to Docker Hub Container Registry
@@ -38,7 +39,3 @@ jobs:
         
         docker push ${{ secrets.DOCKER_USERNAME }}/rest_api_app:${{ github.run_id }}
         docker push ${{ secrets.DOCKER_USERNAME }}/rest_api_app:latest
-
-    - name: Docker Compose Build
-      working-directory: ./rest_api_app
-      run: docker compose build
