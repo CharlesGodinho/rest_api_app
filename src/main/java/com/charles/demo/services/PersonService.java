@@ -54,11 +54,11 @@ public class PersonService{
 		return assembler.toModel(personVosPage, link);
 	}
 	
-	public PagedModel<EntityModel<PersonVO>> findPersonByName(String firstname, Pageable pageable) {
+	public PagedModel<EntityModel<PersonVO>> findPersonByName(String name, Pageable pageable) {
 		
 		logger.info("Finding all people!");
 		
-		var personPage = repository.findPersonsByName(firstname, pageable);
+		var personPage = repository.findPersonsByName(name, pageable);
 		
 		var personVosPage = personPage.map(p -> DozerMapper.parseObject(p, PersonVO.class));
 		personVosPage.map(
