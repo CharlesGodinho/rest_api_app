@@ -34,7 +34,7 @@ jobs:
       run: docker compose build
 
     - name: Push to Docker Hub Container Registry
-      run: 
+      run: |
         docker tag ${{ secrets.DOCKER_USERNAME }}/rest_api_app:latest ${{ secrets.DOCKER_USERNAME }}/rest_api_app:${{ github.run_id }}
         
         docker push ${{ secrets.DOCKER_USERNAME }}/rest_api_app:${{ github.run_id }}
