@@ -21,8 +21,8 @@ services:
   rest_api_app:
     image: charlesgodinho/rest_api_app
     restart: always
-    build: ./rest_api_app
-    working_dir: /rest_api_app
+    build: ./code
+    working_dir: /code
     environment:
       TZ: America/Sao_Paulo
       SPRING.DATASOURCE.URL: jdbc:mysql://db:3308/project?useTimezone=true&serverTimezone=UTC
